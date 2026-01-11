@@ -345,16 +345,18 @@
             document.getElementById('level').textContent = level;
         }
         
-        let lastTime = 0;
+        let lastTime = performance.now();
         
-        function update(time = 0) {
+        function update(time) {
             const deltaTime = time - lastTime;
             lastTime = time;
             
-            dropCounter += deltaTime;
-            if (dropCounter > dropInterval) {
-                playerDrop();
-                dropCounter = 0;
+            if (deltaTime > 0) {
+                dropCounter += deltaTime;
+                if (dropCounter > dropInterval) {
+                    playerDrop();
+                    dropCounter = 0;
+                }
             }
             
             draw();
@@ -377,6 +379,7 @@
             } else if (key === 'q') {
                 playerRotate();
             } else if (key === ' ') {
+                e.preventDefault();
                 while (!collide(board, player)) {
                     player.pos.y++;
                 }
@@ -387,7 +390,7 @@
         
         playerReset();
         updateDisplay();
-        update();
+        requestAnimationFrame(update);
     </script>
 </body>
 </html>

@@ -26,6 +26,7 @@
 	<body>
 		<div class="container">
 			<header>
+				<button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
 				<h1 class="title">🎮 Sandbox Hub</h1>
 				<p class="subtitle">Click on any game to start playing!</p>
 			</header>
@@ -41,6 +42,76 @@
 			</footer>
 		</div>
 
+		<!-- Settings Modal -->
+		<div class="settings-modal" id="settingsModal">
+			<div class="settings-content">
+				<div class="settings-header">
+					<h2>⚙️ Settings</h2>
+					<button class="close-btn" id="closeSettings">&times;</button>
+				</div>
+				<div class="settings-body">
+					<div class="setting-group">
+						<label for="pageTitle">Page Title</label>
+						<select id="pageTitle" class="setting-input">
+							<option value="Sandbox Hub - For your sandboxing needs">Default (Sandbox Hub)</option>
+							<option value="Google Classroom">Google Classroom</option>
+							<option value="Gmail">Gmail</option>
+							<option value="Google Drive">Google Drive</option>
+							<option value="Google Docs">Google Docs</option>
+							<option value="Google Sheets">Google Sheets</option>
+							<option value="YouTube">YouTube</option>
+							<option value="Microsoft Teams">Microsoft Teams</option>
+							<option value="Outlook">Outlook</option>
+							<option value="Custom">Custom...</option>
+						</select>
+						<input
+							type="text"
+							id="customPageTitle"
+							class="setting-input"
+							placeholder="Enter custom title"
+							style="display: none; margin-top: 10px"
+						/>
+					</div>
+
+					<div class="setting-group">
+						<label for="faviconUrl">Favicon URL</label>
+						<input
+							type="url"
+							id="faviconUrl"
+							class="setting-input"
+							placeholder="Leave empty to use default favicon"
+						/>
+						<p class="setting-hint">
+							Enter a URL to an image (e.g., https://www.google.com/favicon.ico)
+						</p>
+					</div>
+
+					<div class="setting-group">
+						<label>Theme Colors</label>
+						<div class="color-inputs">
+							<div class="color-input">
+								<label for="primaryColor">Primary</label>
+								<input type="color" id="primaryColor" class="color-picker" value="#6366f1" />
+							</div>
+							<div class="color-input">
+								<label for="secondaryColor">Secondary</label>
+								<input type="color" id="secondaryColor" class="color-picker" value="#8b5cf6" />
+							</div>
+							<div class="color-input">
+								<label for="accentColor">Accent</label>
+								<input type="color" id="accentColor" class="color-picker" value="#ec4899" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="settings-footer">
+					<button class="btn-reset" id="resetSettings">Reset to Default</button>
+					<button class="btn-save" id="saveSettings">Save Settings</button>
+				</div>
+			</div>
+		</div>
+
 		<script src="script.js"></script>
+		<script src="settings.js"></script>
 	</body>
 </html>

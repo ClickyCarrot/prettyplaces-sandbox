@@ -1,176 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5W28XQPSW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-L5W28XQPSW');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
-    <title>Snake Game</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #0f172a;
-            color: #f1f5f9;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .game-container {
-            text-align: center;
-        }
-        h1 {
-            margin-bottom: 20px;
-            color: #6366f1;
-        }
-        #gameCanvas {
-            border: 2px solid #6366f1;
-            background: #1e293b;
-            border-radius: 8px;
-        }
-        .controls {
-            margin-top: 20px;
-            color: #cbd5e1;
-        }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #6366f1;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        a:hover {
-            background: #4f46e5;
-        }
-    </style>
-</head>
-<body>
-    <div class="game-container">
-        <h1>🐍 Snake Game</h1>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div class="controls">
-            <p>Use WASD keys to move. Eat the food to grow!</p>
-        </div>
-        <a href="../../index.html">← Back to Game Hub</a>
-    </div>
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-L5W28XQPSW"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+			gtag("config", "G-L5W28XQPSW");
+		</script>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+		<title>Snake Game</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 20px;
+				background: #0f172a;
+				color: #f1f5f9;
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				min-height: 100vh;
+			}
+			.game-container {
+				text-align: center;
+			}
+			h1 {
+				margin-bottom: 20px;
+				color: #6366f1;
+			}
+			#gameCanvas {
+				border: 2px solid #6366f1;
+				background: #1e293b;
+				border-radius: 8px;
+			}
+			.controls {
+				margin-top: 20px;
+				color: #cbd5e1;
+			}
+			a {
+				display: inline-block;
+				margin-top: 20px;
+				padding: 10px 20px;
+				background: #6366f1;
+				color: white;
+				text-decoration: none;
+				border-radius: 5px;
+				transition: background 0.3s;
+			}
+			a:hover {
+				background: #4f46e5;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="game-container">
+			<h1>🐍 Snake Game</h1>
+			<canvas id="gameCanvas" width="400" height="400"></canvas>
+			<div class="controls">
+				<p>Use WASD keys to move. Eat the food to grow!</p>
+			</div>
+			<a href="../../index.html">← Back to Game Hub</a>
+		</div>
 
-    <script>
-        // Simple Snake Game
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const gridSize = 20;
-        const tileCount = canvas.width / gridSize;
+		<script>
+			// Simple Snake Game
+			const canvas = document.getElementById("gameCanvas");
+			const ctx = canvas.getContext("2d");
+			const gridSize = 20;
+			const tileCount = canvas.width / gridSize;
 
-        let snake = [{x: 10, y: 10}];
-        let food = {x: 15, y: 15};
-        let dx = 0;
-        let dy = 0;
-        let score = 0;
+			let snake = [{ x: 10, y: 10 }];
+			let food = { x: 15, y: 15 };
+			let dx = 0;
+			let dy = 0;
+			let score = 0;
 
-        function drawGame() {
-            clearCanvas();
-            drawFood();
-            drawSnake();
-            updateScore();
-        }
+			function drawGame() {
+				clearCanvas();
+				drawFood();
+				drawSnake();
+				updateScore();
+			}
 
-        function clearCanvas() {
-            ctx.fillStyle = '#1e293b';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
+			function clearCanvas() {
+				ctx.fillStyle = "#1e293b";
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+			}
 
-        function drawSnake() {
-            ctx.fillStyle = '#6366f1';
-            snake.forEach(segment => {
-                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
-            });
-        }
+			function drawSnake() {
+				ctx.fillStyle = "#6366f1";
+				snake.forEach((segment) => {
+					ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+				});
+			}
 
-        function drawFood() {
-            ctx.fillStyle = '#ec4899';
-            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
-        }
+			function drawFood() {
+				ctx.fillStyle = "#ec4899";
+				ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+			}
 
-        function moveSnake() {
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+			function moveSnake() {
+				const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
-            if (head.x === food.x && head.y === food.y) {
-                score++;
-                food = {
-                    x: Math.floor(Math.random() * tileCount),
-                    y: Math.floor(Math.random() * tileCount)
-                };
-            } else {
-                snake.pop();
-            }
+				if (head.x === food.x && head.y === food.y) {
+					score++;
+					food = {
+						x: Math.floor(Math.random() * tileCount),
+						y: Math.floor(Math.random() * tileCount),
+					};
+				} else {
+					snake.pop();
+				}
 
-            snake.unshift(head);
+				snake.unshift(head);
 
-            // Check wall collision
-            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
-                resetGame();
-            }
+				// Check wall collision
+				if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+					resetGame();
+				}
 
-            // Check self collision
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
-                    resetGame();
-                }
-            }
-        }
+				// Check self collision
+				for (let i = 1; i < snake.length; i++) {
+					if (head.x === snake[i].x && head.y === snake[i].y) {
+						resetGame();
+					}
+				}
+			}
 
-        function updateScore() {
-            ctx.fillStyle = '#cbd5e1';
-            ctx.font = '20px Arial';
-            ctx.fillText('Score: ' + score, 10, 30);
-        }
+			function updateScore() {
+				ctx.fillStyle = "#cbd5e1";
+				ctx.font = "20px Arial";
+				ctx.fillText("Score: " + score, 10, 30);
+			}
 
-        function resetGame() {
-            snake = [{x: 10, y: 10}];
-            dx = 0;
-            dy = 0;
-            score = 0;
-        }
+			function resetGame() {
+				snake = [{ x: 10, y: 10 }];
+				dx = 0;
+				dy = 0;
+				score = 0;
+			}
 
-        document.addEventListener('keydown', (e) => {
-            const key = e.key.toLowerCase();
-            if (key === 'w' && dy !== 1) {
-                dx = 0;
-                dy = -1;
-            }
-            if (key === 's' && dy !== -1) {
-                dx = 0;
-                dy = 1;
-            }
-            if (key === 'a' && dx !== 1) {
-                dx = -1;
-                dy = 0;
-            }
-            if (key === 'd' && dx !== -1) {
-                dx = 1;
-                dy = 0;
-            }
-        });
+			document.addEventListener("keydown", (e) => {
+				const key = e.key.toLowerCase();
+				if (key === "w" && dy !== 1) {
+					dx = 0;
+					dy = -1;
+				}
+				if (key === "s" && dy !== -1) {
+					dx = 0;
+					dy = 1;
+				}
+				if (key === "a" && dx !== 1) {
+					dx = -1;
+					dy = 0;
+				}
+				if (key === "d" && dx !== -1) {
+					dx = 1;
+					dy = 0;
+				}
+			});
 
-        function gameLoop() {
-            moveSnake();
-            drawGame();
-        }
+			function gameLoop() {
+				moveSnake();
+				drawGame();
+			}
 
-        setInterval(gameLoop, 100);
-    </script>
-</body>
+			setInterval(gameLoop, 100);
+		</script>
+	</body>
 </html>
-
