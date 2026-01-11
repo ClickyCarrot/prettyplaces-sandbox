@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L5W28XQPSW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L5W28XQPSW');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
     <title>Snake Game</title>
     <style>
         body {
@@ -52,7 +61,7 @@
         <h1>🐍 Snake Game</h1>
         <canvas id="gameCanvas" width="400" height="400"></canvas>
         <div class="controls">
-            <p>Use arrow keys to move. Eat the food to grow!</p>
+            <p>Use WASD keys to move. Eat the food to grow!</p>
         </div>
         <a href="../../index.html">← Back to Game Hub</a>
     </div>
@@ -136,19 +145,20 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowUp' && dy !== 1) {
+            const key = e.key.toLowerCase();
+            if (key === 'w' && dy !== 1) {
                 dx = 0;
                 dy = -1;
             }
-            if (e.key === 'ArrowDown' && dy !== -1) {
+            if (key === 's' && dy !== -1) {
                 dx = 0;
                 dy = 1;
             }
-            if (e.key === 'ArrowLeft' && dx !== 1) {
+            if (key === 'a' && dx !== 1) {
                 dx = -1;
                 dy = 0;
             }
-            if (e.key === 'ArrowRight' && dx !== -1) {
+            if (key === 'd' && dx !== -1) {
                 dx = 1;
                 dy = 0;
             }
