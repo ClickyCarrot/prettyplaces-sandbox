@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #f1f5f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .game-container {
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #ec4899;
+        }
+        #gameCanvas {
+            border: 2px solid #ec4899;
+            background: #1e293b;
+            border-radius: 8px;
+        }
+        .controls {
+            margin-top: 20px;
+            color: #cbd5e1;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ec4899;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        a:hover {
+            background: #db2777;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🏓 Pong</h1>
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        <div class="controls">
+            <p>Use W/S keys to move your paddle. Hit the ball!</p>
+        </div>
+        <a href="../../index.html">← Back to Game Hub</a>
+    </div>
+
+    <script>
+        // Simple Pong Game
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const paddleWidth = 10;
+        const paddleHeight = 80;
+        const ballSize = 10;
+
+        let playerY = canvas.height / 2 - paddleHeight / 2;
+        let aiY = canvas.height / 2 - paddleHeight / 2;
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height / 2;
+        let ballSpeedX = 5;
+        let ballSpeedY = 3;
+        let playerScore = 0;
+        let aiScore = 0;
+
+        const keys = {};
+
+        document.addEventListener('keydown', (e) => {
+            keys[e.key.toLowerCase()] = true;
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.key.toLowerCase()] = false;
+        });
+
+        function update() {
+            // Move player paddle
+            if (keys['w'] && playerY > 0) playerY -= 5;
+            if (keys['s'] && playerY < canvas.height - paddleHeight) playerY += 5;
+
+            // Simple AI
+            const aiCenter = aiY + paddleHeight / 2;
+            if (aiCenter < ballY - 10) aiY += 4;
+            if (aiCenter > ballY + 10) aiY -= 4;
+
+            // Move ball
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            // Ball collision with top/bottom
+            if (ballY < 0 || ballY > canvas.height) ballSpeedY = -ballSpeedY;
+
+            // Ball collision with paddles
+            if (ballX < paddleWidth && ballY > playerY && ballY < playerY + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+                ballX = paddleWidth;
+            }
+
+            if (ballX > canvas.width - paddleWidth && ballY > aiY && ballY < aiY + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+                ballX = canvas.width - paddleWidth;
+            }
+
+            // Score
+            if (ballX < 0) {
+                aiScore++;
+                resetBall();
+            }
+            if (ballX > canvas.width) {
+                playerScore++;
+                resetBall();
+            }
+        }
+
+        function resetBall() {
+            ballX = canvas.width / 2;
+            ballY = canvas.height / 2;
+            ballSpeedX = -ballSpeedX;
+            ballSpeedY = Math.random() * 6 - 3;
+        }
+
+        function draw() {
+            // Clear canvas
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw paddles
+            ctx.fillStyle = '#ec4899';
+            ctx.fillRect(0, playerY, paddleWidth, paddleHeight);
+            ctx.fillRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight);
+
+            // Draw ball
+            ctx.fillRect(ballX - ballSize / 2, ballY - ballSize / 2, ballSize, ballSize);
+
+            // Draw scores
+            ctx.fillStyle = '#cbd5e1';
+            ctx.font = '32px Arial';
+            ctx.fillText(playerScore, canvas.width / 4, 50);
+            ctx.fillText(aiScore, 3 * canvas.width / 4, 50);
+
+            // Draw center line
+            ctx.strokeStyle = '#334155';
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>
+
