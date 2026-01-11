@@ -15,9 +15,13 @@
 	--glow-color: rgba(99, 102, 241, 0.5);
 }
 
+html {
+	background: var(--bg-dark);
+}
+
 body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	background: linear-gradient(135deg, var(--bg-dark) 0%, #1e293b 100%);
+	background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-card) 100%);
 	color: var(--text-primary);
 	min-height: 100vh;
 	padding: 2rem 1rem;
@@ -206,34 +210,6 @@ footer {
 	.title {
 		font-size: 2rem;
 	}
-}
-
-/* Settings Button */
-.settings-btn {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	background: var(--bg-card);
-	border: 2px solid var(--primary-color);
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
-	font-size: 24px;
-	cursor: pointer;
-	transition: background-color 0.3s ease, box-shadow 0.3s ease;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-	transform: translateZ(0);
-	will-change: auto;
-}
-
-.settings-btn:hover {
-	background: var(--primary-color);
-	transform: translateZ(0) rotate(90deg) scale(1.1);
-	box-shadow: 0 6px 20px var(--glow-color);
 }
 
 /* Settings Modal */

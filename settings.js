@@ -163,6 +163,9 @@ function applySettings(settings) {
 	document.documentElement.style.setProperty("--accent-color", theme.accentColor);
 	document.documentElement.style.setProperty("--bg-dark", theme.bgDark);
 	document.documentElement.style.setProperty("--bg-card", theme.bgCard);
+	
+	// Apply HTML background
+	document.documentElement.style.backgroundColor = theme.bgDark;
 
 	// Update glow color (lighter version of primary)
 	const glowColor = hexToRgba(theme.primaryColor, 0.5);
