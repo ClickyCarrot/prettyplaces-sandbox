@@ -74,34 +74,22 @@
 					</div>
 
 					<div class="setting-group">
-						<label for="faviconUrl">Favicon URL</label>
+						<label for="faviconSelect">Favicon</label>
+						<select id="faviconSelect" class="setting-input"></select>
 						<input
 							type="url"
-							id="faviconUrl"
+							id="customFaviconUrl"
 							class="setting-input"
-							placeholder="Leave empty to use default favicon"
+							placeholder="Enter custom favicon URL"
+							style="display: none; margin-top: 10px"
 						/>
-						<p class="setting-hint">
-							Enter a URL to an image (e.g., https://www.google.com/favicon.ico)
-						</p>
+						<p class="setting-hint">Choose a preset favicon or enter a custom URL</p>
 					</div>
 
 					<div class="setting-group">
-						<label>Theme Colors</label>
-						<div class="color-inputs">
-							<div class="color-input">
-								<label for="primaryColor">Primary</label>
-								<input type="color" id="primaryColor" class="color-picker" value="#6366f1" />
-							</div>
-							<div class="color-input">
-								<label for="secondaryColor">Secondary</label>
-								<input type="color" id="secondaryColor" class="color-picker" value="#8b5cf6" />
-							</div>
-							<div class="color-input">
-								<label for="accentColor">Accent</label>
-								<input type="color" id="accentColor" class="color-picker" value="#ec4899" />
-							</div>
-						</div>
+						<label for="themeSelect">Theme</label>
+						<select id="themeSelect" class="setting-input"></select>
+						<p class="setting-hint">Choose a color theme for the site</p>
 					</div>
 				</div>
 				<div class="settings-footer">
