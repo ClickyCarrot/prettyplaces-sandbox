@@ -12,48 +12,64 @@ const THEMES = {
 		primaryColor: "#6366f1",
 		secondaryColor: "#8b5cf6",
 		accentColor: "#ec4899",
+		bgDark: "#0f172a",
+		bgCard: "#1e293b",
 	},
 	blue: {
 		name: "Blue Ocean",
 		primaryColor: "#3b82f6",
 		secondaryColor: "#2563eb",
 		accentColor: "#60a5fa",
+		bgDark: "#0c1220",
+		bgCard: "#1e2a47",
 	},
 	green: {
 		name: "Forest Green",
 		primaryColor: "#10b981",
 		secondaryColor: "#059669",
 		accentColor: "#34d399",
+		bgDark: "#0a1520",
+		bgCard: "#1a2e24",
 	},
 	purple: {
 		name: "Royal Purple",
 		primaryColor: "#8b5cf6",
 		secondaryColor: "#7c3aed",
 		accentColor: "#a78bfa",
+		bgDark: "#1a0f2e",
+		bgCard: "#2d1b4e",
 	},
 	red: {
 		name: "Crimson Red",
 		primaryColor: "#ef4444",
 		secondaryColor: "#dc2626",
 		accentColor: "#f87171",
+		bgDark: "#1f0f0f",
+		bgCard: "#2e1a1a",
 	},
 	orange: {
 		name: "Sunset Orange",
 		primaryColor: "#f59e0b",
 		secondaryColor: "#d97706",
 		accentColor: "#fbbf24",
+		bgDark: "#1f150f",
+		bgCard: "#2e1f1a",
 	},
 	cyan: {
 		name: "Cyan Sky",
 		primaryColor: "#06b6d4",
 		secondaryColor: "#0891b2",
 		accentColor: "#22d3ee",
+		bgDark: "#0a1520",
+		bgCard: "#1a2a2e",
 	},
 	dark: {
 		name: "Dark Mode",
 		primaryColor: "#64748b",
 		secondaryColor: "#475569",
 		accentColor: "#94a3b8",
+		bgDark: "#0f1419",
+		bgCard: "#1e2932",
 	},
 };
 
@@ -145,6 +161,8 @@ function applySettings(settings) {
 	document.documentElement.style.setProperty("--primary-color", theme.primaryColor);
 	document.documentElement.style.setProperty("--secondary-color", theme.secondaryColor);
 	document.documentElement.style.setProperty("--accent-color", theme.accentColor);
+	document.documentElement.style.setProperty("--bg-dark", theme.bgDark);
+	document.documentElement.style.setProperty("--bg-card", theme.bgCard);
 
 	// Update glow color (lighter version of primary)
 	const glowColor = hexToRgba(theme.primaryColor, 0.5);
