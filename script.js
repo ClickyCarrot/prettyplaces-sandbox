@@ -4,19 +4,19 @@ const games = [
 		name: "Snake",
 		icon: "🐍",
 		description: "Classic snake game - eat food and grow longer!",
-		path: "embed/snake",
+		path: "/embed/snake",
 	},
 	{
 		name: "Tetris",
 		icon: "🧩",
 		description: "Stack the falling blocks and clear lines!",
-		path: "embed/tetris",
+		path: "/embed/tetris",
 	},
 	{
 		name: "Pong",
 		icon: "🏓",
 		description: "Classic arcade game - hit the ball back and forth!",
-		path: "embed/pong",
+		path: "/embed/pong",
 	},
 	// Add more games here as you create them
 ];
@@ -24,7 +24,7 @@ const games = [
 // Function to create game cards
 function createGameCard(game) {
 	const card = document.createElement("a");
-	card.href = `${game.path}/index.html`;
+	card.href = `${game.path}`;
 	card.className = "game-card";
 
 	card.innerHTML = `

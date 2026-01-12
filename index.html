@@ -13,6 +13,15 @@
 		</script>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script>
+			(function () {
+				const path = window.location.pathname;
+				if (/\/index\.html$/.test(path)) {
+					const newPath = path.replace(/\/index\.html$/, "") || "/";
+					window.location.replace(newPath + window.location.search + window.location.hash);
+				}
+			})();
+		</script>
 		<title>Sandbox Hub - For your sandboxing needs</title>
 		<meta name="description" content="Sandbox Hub - For your sandboxing needs" />
 		<meta
@@ -91,6 +100,19 @@
 						<label for="themeSelect">Theme</label>
 						<select id="themeSelect" class="setting-input"></select>
 						<p class="setting-hint">Choose a color theme for the site</p>
+					</div>
+
+					<div class="setting-group">
+						<label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+							<input type="checkbox" id="cloakingToggle" class="setting-checkbox" />
+							<span>Enable Cloaking</span>
+						</label>
+						<p class="setting-hint">
+							When enabled, you can open the site in a cloaked window (appears as about:blank)
+						</p>
+						<button id="openCloaked" class="btn-cloak" style="display: none; margin-top: 10px">
+							Open in Cloaked Window
+						</button>
 					</div>
 				</div>
 				<div class="settings-footer">

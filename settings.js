@@ -188,6 +188,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const settingsBtn = document.getElementById("settingsBtn");
 	const settingsModal = document.getElementById("settingsModal");
+	
+	if (!settingsBtn || !settingsModal) {
+		console.error("Settings button or modal not found");
+		return;
+	}
+	
 	const closeSettings = document.getElementById("closeSettings");
 	const saveSettingsBtn = document.getElementById("saveSettings");
 	const resetSettingsBtn = document.getElementById("resetSettings");

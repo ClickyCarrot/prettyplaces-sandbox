@@ -369,11 +369,21 @@ footer {
 	width: 100%;
 }
 
+.btn-cloak {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
 .btn-cloak:hover {
 	background: var(--primary-color);
 	color: white;
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px var(--glow-color);
+	transform: translateY(-3px);
+	box-shadow: 0 6px 20px var(--glow-color);
+}
+
+.btn-cloak:active {
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .settings-footer {
@@ -393,30 +403,44 @@ footer {
 	font-size: 1rem;
 	font-weight: 600;
 	cursor: pointer;
-	transition: all 0.3s ease;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
 	font-family: inherit;
+	position: relative;
 }
 
 .btn-save {
 	background: var(--primary-color);
 	color: white;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-save:hover {
 	background: var(--secondary-color);
-	transform: translateY(-2px);
+	transform: translateY(-3px);
 	box-shadow: 0 6px 20px var(--glow-color);
+}
+
+.btn-save:active {
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .btn-reset {
 	background: rgba(255, 255, 255, 0.1);
 	color: var(--text-primary);
 	border: 2px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-reset:hover {
 	background: rgba(255, 255, 255, 0.2);
-	transform: translateY(-2px);
+	transform: translateY(-3px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-reset:active {
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes fadeIn {
