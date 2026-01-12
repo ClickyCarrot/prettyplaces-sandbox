@@ -164,7 +164,7 @@ function applySettings(settings) {
 	document.documentElement.style.setProperty("--accent-color", theme.accentColor);
 	document.documentElement.style.setProperty("--bg-dark", theme.bgDark);
 	document.documentElement.style.setProperty("--bg-card", theme.bgCard);
-	
+
 	// Apply HTML background
 	document.documentElement.style.backgroundColor = theme.bgDark;
 
@@ -188,12 +188,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const settingsBtn = document.getElementById("settingsBtn");
 	const settingsModal = document.getElementById("settingsModal");
-	
+
 	if (!settingsBtn || !settingsModal) {
 		console.error("Settings button or modal not found");
 		return;
 	}
-	
+
 	const closeSettings = document.getElementById("closeSettings");
 	const saveSettingsBtn = document.getElementById("saveSettings");
 	const resetSettingsBtn = document.getElementById("resetSettings");
@@ -339,28 +339,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Open cloaked window
 	openCloakedBtn.addEventListener("click", () => {
-		const cloakedWindow = window.open("about:blank", "_blank");
-		if (cloakedWindow) {
-			cloakedWindow.document.write(`
-				<!DOCTYPE html>
-				<html>
-				<head>
-					<meta charset="UTF-8">
-					<title>${document.title}</title>
-					<link rel="icon" type="image/svg+xml" href="${document.querySelector('link[rel="icon"]').href}">
-					<style>
-						* { margin: 0; padding: 0; box-sizing: border-box; }
-						body { overflow: hidden; }
-						iframe { width: 100%; height: 100vh; border: none; }
-					</style>
-				</head>
-				<body>
-					<iframe src="${window.location.href}"></iframe>
-				</body>
-				</html>
-			`);
-			cloakedWindow.document.close();
+		if (typeof window.openCloaked === "function") {
+			window.openCloaked(window.location.origin + "/", "_blank");
+			return;
 		}
+		const cloakedWindow = window.open("about:blank", "_blank");
+		if (!cloakedWindow) return;
+		cloakedWindow.document.write(`
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<meta charset="UTF-8">
+				<title>${document.title}</title>
+				<link rel="icon" type="image/svg+xml" href="${document.querySelector('link[rel="icon"]').href}">
+				<style>
+					* { margin: 0; padding: 0; box-sizing: border-box; }
+					body { overflow: hidden; }
+					iframe { width: 100%; height: 100vh; border: none; }
+				</style>
+			</head>
+			<body>
+				<iframe src="${window.location.origin + "/"}"></iframe>
+			</body>
+			</html>
+		`);
+		cloakedWindow.document.close();
 	});
 
 	// Close on Escape key
