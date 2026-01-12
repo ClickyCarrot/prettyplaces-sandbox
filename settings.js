@@ -3,6 +3,7 @@ const DEFAULT_SETTINGS = {
 	pageTitle: "Sandbox Hub - For your sandboxing needs",
 	faviconUrl: "favicon.svg",
 	theme: "default",
+	cloaking: false,
 };
 
 // Preset themes
@@ -195,6 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const faviconSelect = document.getElementById("faviconSelect");
 	const customFaviconInput = document.getElementById("customFaviconUrl");
 	const themeSelect = document.getElementById("themeSelect");
+	const cloakingToggle = document.getElementById("cloakingToggle");
+	const openCloakedBtn = document.getElementById("openCloaked");
 
 	// Populate favicon select
 	Object.entries(FAVICONS).forEach(([key, favicon]) => {
@@ -242,6 +245,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// Set theme
 		themeSelect.value = currentSettings.theme || DEFAULT_SETTINGS.theme;
+
+		// Set cloaking
+		cloakingToggle.checked = currentSettings.cloaking || false;
+		openCloakedBtn.style.display = currentSettings.cloaking ? "block" : "none";
 	}
 
 	populateForm(settings);
@@ -301,10 +308,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			pageTitle: pageTitle,
 			faviconUrl: faviconUrl,
 			theme: themeSelect.value,
+			cloaking: cloakingToggle.checked,
 		};
 
 		saveSettings(newSettings);
 		applySettings(newSettings);
+		openCloakedBtn.style.display = cloakingToggle.checked ? "block" : "none";
 		settingsModal.classList.remove("active");
 	});
 
@@ -314,6 +323,37 @@ document.addEventListener("DOMContentLoaded", () => {
 			saveSettings(DEFAULT_SETTINGS);
 			applySettings(DEFAULT_SETTINGS);
 			populateForm(DEFAULT_SETTINGS);
+		}
+	});
+
+	// Handle cloaking toggle change
+	cloakingToggle.addEventListener("change", () => {
+		openCloakedBtn.style.display = cloakingToggle.checked ? "block" : "none";
+	});
+
+	// Open cloaked window
+	openCloakedBtn.addEventListener("click", () => {
+		const cloakedWindow = window.open("about:blank", "_blank");
+		if (cloakedWindow) {
+			cloakedWindow.document.write(`
+				<!DOCTYPE html>
+				<html>
+				<head>
+					<meta charset="UTF-8">
+					<title>${document.title}</title>
+					<link rel="icon" type="image/svg+xml" href="${document.querySelector('link[rel="icon"]').href}">
+					<style>
+						* { margin: 0; padding: 0; box-sizing: border-box; }
+						body { overflow: hidden; }
+						iframe { width: 100%; height: 100vh; border: none; }
+					</style>
+				</head>
+				<body>
+					<iframe src="${window.location.href}"></iframe>
+				</body>
+				</html>
+			`);
+			cloakedWindow.document.close();
 		}
 	});
 
