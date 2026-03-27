@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sandbox</title>
+		<meta name="description" content="Sandbox - Your game portal" />
+		<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family:
+					-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+					sans-serif;
+				background: #f5f7fa;
+				color: #333;
+				line-height: 1.6;
+			}
+
+			.navbar {
+				background: #1a237e;
+				color: white;
+				padding: 0 2rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				height: 60px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.navbar h1 {
+				font-size: 1.3rem;
+				font-weight: 500;
+			}
+
+			.nav-links {
+				display: flex;
+				gap: 1.5rem;
+			}
+
+			.nav-links a {
+				color: rgba(255, 255, 255, 0.85);
+				text-decoration: none;
+				font-size: 0.9rem;
+				transition: color 0.2s;
+			}
+
+			.nav-links a:hover {
+				color: white;
+			}
+
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 2rem;
+			}
+
+			.welcome-banner {
+				background: linear-gradient(135deg, #3949ab 0%, #1a237e 100%);
+				color: white;
+				padding: 2rem;
+				border-radius: 12px;
+				margin-bottom: 2rem;
+			}
+
+			.welcome-banner h2 {
+				font-size: 1.5rem;
+				margin-bottom: 0.5rem;
+			}
+
+			.welcome-banner p {
+				opacity: 0.9;
+				font-size: 0.95rem;
+			}
+
+			.section-title {
+				font-size: 1.1rem;
+				color: #1a237e;
+				margin-bottom: 1rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 2px solid #e8eaf6;
+			}
+
+			.courses-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5rem;
+				margin-bottom: 2rem;
+			}
+
+			.course-card {
+				background: white;
+				border-radius: 8px;
+				padding: 1.5rem;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+				transition:
+					transform 0.2s,
+					box-shadow 0.2s;
+			}
+
+			.course-card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+			}
+
+			.course-icon {
+				width: 48px;
+				height: 48px;
+				background: #e8eaf6;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5rem;
+				margin-bottom: 1rem;
+			}
+
+			.course-card h3 {
+				font-size: 1rem;
+				color: #333;
+				margin-bottom: 0.5rem;
+			}
+
+			.course-card p {
+				font-size: 0.85rem;
+				color: #666;
+				margin-bottom: 1rem;
+			}
+
+			.course-buttons {
+				display: flex;
+				gap: 0.5rem;
+			}
+
+			.btn-open {
+				flex: 1;
+				padding: 0.5rem 1rem;
+				background: #1a237e;
+				color: white;
+				border: none;
+				border-radius: 4px;
+				font-size: 0.85rem;
+				cursor: pointer;
+				text-decoration: none;
+				text-align: center;
+				transition: background 0.2s;
+			}
+
+			.btn-open:hover {
+				background: #3949ab;
+			}
+
+			.btn-cloak {
+				flex: 1;
+				padding: 0.5rem 1rem;
+				background: transparent;
+				color: #666;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				font-size: 0.85rem;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+
+			.btn-cloak:hover {
+				background: #f5f5f5;
+				border-color: #ccc;
+			}
+
+			.progress-bar {
+				height: 6px;
+				background: #e8eaf6;
+				border-radius: 3px;
+				overflow: hidden;
+				margin-bottom: 0.5rem;
+			}
+
+			.progress-fill {
+				height: 100%;
+				background: #4caf50;
+				border-radius: 3px;
+			}
+
+			.progress-text {
+				font-size: 0.75rem;
+				color: #888;
+			}
+
+			.announcements {
+				background: white;
+				border-radius: 8px;
+				padding: 1.5rem;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+				margin-bottom: 2rem;
+			}
+
+			.announcement-item {
+				padding: 1rem 0;
+				border-bottom: 1px solid #eee;
+			}
+
+			.announcement-item:last-child {
+				border-bottom: none;
+			}
+
+			.announcement-item h4 {
+				font-size: 0.95rem;
+				color: #333;
+				margin-bottom: 0.3rem;
+			}
+
+			.announcement-item p {
+				font-size: 0.85rem;
+				color: #666;
+			}
+
+			.announcement-date {
+				font-size: 0.75rem;
+				color: #999;
+				margin-top: 0.3rem;
+			}
+
+			.quick-links {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+				gap: 1rem;
+			}
+
+			.quick-link {
+				background: white;
+				border-radius: 8px;
+				padding: 1rem 1.5rem;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				text-decoration: none;
+				color: #333;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+				transition: background 0.2s;
+			}
+
+			.quick-link:hover {
+				background: #f5f7fa;
+			}
+
+			.quick-link-icon {
+				font-size: 1.3rem;
+			}
+
+			.quick-link span {
+				font-size: 0.9rem;
+			}
+
+			footer {
+				text-align: center;
+				padding: 2rem;
+				color: #888;
+				font-size: 0.85rem;
+			}
+
+			.settings-btn {
+				background: transparent;
+				border: none;
+				color: rgba(255, 255, 255, 0.85);
+				font-size: 1.2rem;
+				cursor: pointer;
+				padding: 0.5rem;
+			}
+			.settings-btn:hover {
+				color: white;
+			}
+			.settings-modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+				z-index: 1000;
+				justify-content: center;
+				align-items: center;
+			}
+			.settings-modal.active {
+				display: flex;
+			}
+			.settings-content {
+				background: white;
+				border-radius: 12px;
+				width: 90%;
+				max-width: 500px;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+			.settings-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 1rem 1.5rem;
+				border-bottom: 1px solid #e8eaf6;
+			}
+			.settings-header h2 {
+				margin: 0;
+				font-size: 1.2rem;
+			}
+			.close-btn {
+				background: none;
+				border: none;
+				font-size: 1.5rem;
+				cursor: pointer;
+				color: #666;
+			}
+			.settings-body {
+				padding: 1.5rem;
+			}
+			.setting-group {
+				margin-bottom: 1.5rem;
+			}
+			.setting-group label {
+				display: block;
+				font-weight: 500;
+				margin-bottom: 0.5rem;
+				color: #333;
+			}
+			.setting-input {
+				width: 100%;
+				padding: 0.6rem;
+				border: 1px solid #ddd;
+				border-radius: 6px;
+				font-size: 0.9rem;
+			}
+			.setting-hint {
+				font-size: 0.8rem;
+				color: #888;
+				margin-top: 0.3rem;
+			}
+			.setting-checkbox {
+				width: auto;
+				margin-right: 0.5rem;
+			}
+			.settings-footer {
+				display: flex;
+				justify-content: flex-end;
+				gap: 1rem;
+				padding: 1rem 1.5rem;
+				border-top: 1px solid #e8eaf6;
+			}
+			.btn-reset,
+			.btn-save {
+				padding: 0.6rem 1.2rem;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 0.9rem;
+			}
+			.btn-reset {
+				background: transparent;
+				border: 1px solid #ddd;
+				color: #666;
+			}
+			.btn-save {
+				background: #1a237e;
+				border: none;
+				color: white;
+			}
+			.btn-cloak {
+				background: #1a237e;
+				border: none;
+				color: white;
+				padding: 0.6rem 1.2rem;
+				border-radius: 6px;
+				cursor: pointer;
+			}
+
+			@media (max-width: 768px) {
+				.navbar {
+					padding: 0 1rem;
+				}
+				.nav-links {
+					display: none;
+				}
+				.container {
+					padding: 1rem;
+				}
+				.courses-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar">
+			<h1>⚡ Sandbox</h1>
+			<div class="nav-links">
+				<button class="settings-btn" id="settingsBtn" title="Settings">⚙️</button>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div class="welcome-banner">
+				<h2>Welcome</h2>
+				<p>Do what u want lol</p>
+			</div>
+
+			<h3 class="section-title">My Courses</h3>
+			<div class="courses-grid" id="coursesGrid">
+				<!-- Courses will be dynamically loaded here -->
+			</div>
+
+			<h3 class="section-title">Announcements</h3>
+			<div class="announcements">
+				<div class="announcement-item">
+					<h4>Check out Game Dump for extra games!</h4>
+					<p>Theres a title yk</p>
+					<p class="announcement-date">Posted: March 26, 2026</p>
+				</div>
+				<div class="announcement-item">
+					<h4>V1.1 Release</h4>
+					<p>Complete revamp of the interface and functionality.</p>
+					<p class="announcement-date">Released: March 26, 2026</p>
+				</div>
+				<div class="announcement-item">
+					<h4>V1.0 Release</h4>
+					<p>Initial release.</p>
+					<p class="announcement-date">Released: January 11, 2026</p>
+				</div>
+			</div>
+
+			<h3 class="section-title">Quick Links</h3>
+			<div class="quick-links">
+				<a href="dump.html" class="quick-link">
+					<span class="quick-link-icon">📦</span>
+					<span>Game Dump</span>
+				</a>
+			</div>
+		</div>
+
+		<footer>
+			<p>© 2026 Sandbox. All rights reserved.</p>
+		</footer>
+
+		<!-- Settings Modal -->
+		<div class="settings-modal" id="settingsModal">
+			<div class="settings-content">
+				<div class="settings-header">
+					<h2>⚙️ Settings</h2>
+					<button class="close-btn" id="closeSettings">&times;</button>
+				</div>
+				<div class="settings-body">
+					<div class="setting-group">
+						<label for="pageTitle">Page Title</label>
+						<select id="pageTitle" class="setting-input">
+							<option value="Sandbox - Game Portal">Default (Sandbox)</option>
+							<option value="Google">Google</option>
+							<option value="Google Classroom">Google Classroom</option>
+							<option value="Gmail">Gmail</option>
+							<option value="Google Drive">Google Drive</option>
+							<option value="Google Docs">Google Docs</option>
+							<option value="Google Sheets">Google Sheets</option>
+							<option value="YouTube">YouTube</option>
+							<option value="Microsoft Teams">Microsoft Teams</option>
+							<option value="Outlook">Outlook</option>
+							<option value="Custom">Custom...</option>
+						</select>
+						<input
+							type="text"
+							id="customPageTitle"
+							class="setting-input"
+							placeholder="Enter custom title"
+							style="display: none; margin-top: 10px"
+						/>
+					</div>
+
+					<div class="setting-group">
+						<label for="faviconSelect">Favicon</label>
+						<select id="faviconSelect" class="setting-input"></select>
+						<input
+							type="url"
+							id="customFaviconUrl"
+							class="setting-input"
+							placeholder="Enter custom favicon URL"
+							style="display: none; margin-top: 10px"
+						/>
+						<p class="setting-hint">Choose a preset favicon or enter a custom URL</p>
+					</div>
+
+					<div class="setting-group">
+						<label style="display: flex; align-items: center; gap: 10px; cursor: pointer">
+							<input type="checkbox" id="cloakingToggle" class="setting-checkbox" />
+							<span>Enable about:blank</span>
+						</label>
+						<p class="setting-hint">When enabled, you can open the site in a cloaked window</p>
+						<button id="openCloaked" class="btn-cloak" style="display: none; margin-top: 10px">
+							Open in about:blank
+						</button>
+					</div>
+				</div>
+				<div class="settings-footer">
+					<button class="btn-reset" id="resetSettings">Reset to Default</button>
+					<button class="btn-save" id="saveSettings">Save Settings</button>
+				</div>
+			</div>
+		</div>
+
+		<script type="module" src="assets/js/script.js"></script>
+		<script src="assets/js/settings.js"></script>
+		<script src="assets/js/cloaking.js"></script>
+	</body>
+</html>

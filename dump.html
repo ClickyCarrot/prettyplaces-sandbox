@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Game Dump</title>
+		<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				font-family: system-ui, sans-serif;
+				background: #1a1a2e;
+				color: #eee;
+				padding: 20px;
+			}
+			h1 {
+				margin-bottom: 20px;
+			}
+			a {
+				color: #4fc3f7;
+			}
+			.game {
+				background: #16213e;
+				padding: 10px;
+				margin: 8px 0;
+				border-radius: 4px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.game h3 {
+				font-size: 14px;
+				font-weight: normal;
+			}
+			.game a,
+			.game button {
+				padding: 4px 12px;
+				margin-left: 8px;
+				font-size: 12px;
+				border-radius: 3px;
+				cursor: pointer;
+			}
+			.game a {
+				background: #0f3460;
+				color: #fff;
+				text-decoration: none;
+			}
+			.game button {
+				background: transparent;
+				border: 1px solid #555;
+				color: #aaa;
+			}
+			.back {
+				display: inline-block;
+				margin-bottom: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="index.html" class="back">← Back</a>
+		<h1>Game Dump</h1>
+		<div id="games"></div>
+		<script type="module">
+			import { openCloaked } from "./assets/js/script.js";
+
+			// List of all games in dump folder
+			const games = [
+				"Bank Robbery",
+				"Eaglercraft-Indev-Offline",
+				"Helios-Offline",
+				"MINECRAFTTOWERDEFENSE",
+				"PVZM",
+				"Smash Hit Ripoff",
+				"cheeserolling",
+				"1",
+				"100RoomsOfEnemies",
+				"10bullets",
+				"10minutestildawn",
+				"10morebullets",
+				"12minibattles",
+				"13bones",
+				"1on1soccer",
+				"1v1lol",
+				"1v1tennis",
+				"2048",
+				"2048cupcakes",
+				"20smallmazes",
+				"234playergame",
+				"2Dshooting",
+				"2doom",
+				"3dash",
+				"3dasheditor",
+				"3dpinballspacecadet",
+				"3pandas",
+				"3pandasbrazil",
+				"3pandasfantasy",
+				"3pandasjapan",
+				"3pandasnight",
+				"3slices2",
+				"40xescape",
+				"4thandgoal",
+				"500calibercontractz",
+				"60secondsburgerrun",
+				"60secondssantarun",
+				"64in1nes",
+				"8ballclassic",
+				"8ballpool",
+				"9007199254740992",
+				"90in1nes",
+				"99balls",
+				"99nightsitf",
+				"A Walk in The Forest",
+				"ADOFAI",
+				"ADarkRoom",
+				"Acko_s Mach Bike Challenge",
+				"AdventureCapatalist",
+				"Altered Beast",
+				"AstrosDreamland",
+				"AwesomePirates",
+				"B3313",
+				"BFDIBranches",
+				"BMX2",
+				"BTD1",
+				"Big_Time_Butter_Baron",
+				"Bonanza-Bros",
+				"BountyOfOne",
+				"Brawlstars",
+				"BusterJam",
+				"CartoonNetworkTableTennisUltimateTournament",
+				"CeliasStupidROMHack",
+				"CellToSingularity",
+				"ChickenCS",
+				"CircloO2",
+				"Colorboxmustard",
+				"CrystalCastles",
+				"DKNESCollection",
+				"DragonBallZTheLegacyofGoku",
+				"DragonQuestIX",
+				"Dragonxclient",
+				"EaglerCraftTech",
+				"Eaglercraft-Alpha-126-Offline",
+				"Eaglercraft-Beta-1.3-Offline",
+				"Eaglercraft-Indev-Offline",
+				"EaglercraftL_19_v0_7_0_Offline_Signed",
+				"EaglercraftX-188u29",
+				"EaglercraftZ_1112",
+				"FF3",
+				"FFsonic1",
+				"FFsonic2",
+				"FFsonic3",
+				"FFsonic4",
+				"FFsonic5",
+				"FFsonic61",
+				"FFsonic62",
+				"FIFA07",
+				"FIFA10",
+				"FIFA11",
+				"FIFA2000",
+				"FIFA99",
+				"FIFAinternationalsoccer",
+				"FIFAroadtoworldcup98",
+				"FIFAsoccer06",
+				"FIFAsoccer95",
+				"FIFAsoccer96",
+				"FIFAsoccer97",
+				"FIFAstreet2",
+				"FNAF",
+				"FNAF2",
+				"FNAF3",
+				"FNAF4",
+				"GXclient",
+				"Gain Ground",
+				"Gettothetopalthoughthereisnotop",
+				"GoldenSunTheLostAge",
+				"Haroldsbadday",
+				"Helios-Offline",
+				"HiNoHomo",
+				"HighSpeed",
+				"Hil ClimbRacing2",
+				"HoennsLastWish",
+				"Inkwell",
+				"JUMP",
+				"KenGriffeyJrPresentsMajorLeagueBaseball",
+				"LSE",
+				"LearnToFly3Debug",
+				"LegacyOfGoku",
+				"Mario Party Advance",
+				"MarioisMissingDoneRight",
+				"MarvelSuperHeroesArcade",
+				"MarvelVsCapcomPS1",
+				"MarvelVsStreetFighter",
+				"MetalSonicHyperdrive",
+				"Minceraft-I-NotMine_V6",
+				"Moemon Emerald Vanilla+",
+				"NBAhangtime",
+				"NBAjam",
+				"NautilusOS",
+				"NewSuperMarioWorld2AroundtheWorld",
+				"NicktoonsFreezeFrameFrenzy",
+				"NutsandBoltsScrewingPuzzle",
+				"OotMasterQuest",
+				"OrangeRoulette",
+				"OutrunArcade",
+				"OutrunGenesis",
+				"PaperMarioDSE",
+				"PaperMarioPracticeHack",
+				"PokeAmbrosia",
+				"PokeEmeraldRogueEX",
+				"PokeFusion3",
+				"PokeHeartgoldGenerations",
+				"PokeThetaEmeraldEX",
+				"Pokemonemeraldrouge",
+				"Pokemonrocketedition",
+				"Pokémon Emerald Rush Edition",
+				"Pokémon TWO",
+				"Pokémon Trade&_Stache",
+				"Pokémonstunningsteel",
+				"Pou",
+				"RedBall4",
+				"SINGLEFILE",
+				"SM64Land",
+				"SSF2Arcade",
+				"SSF2TArcade",
+				"ScamptonTheGreatFightRecreate",
+				"SegaSonicTheHedgehog",
+				"SkyRiders",
+				"SnowBrosGenesis",
+				"Sonic & Knuckles + Sonic The Hedgehog 3",
+				"Sonic1ScoreRush",
+				"Sonic1TheSuperChallenges",
+				"Sonic2ScoreRush",
+				"SonicClassics",
+				"SonicHellfireSaga",
+				"SonicInSM64",
+				"SonicinSMW",
+				"Sovereignoftheskys",
+				"SpongebobPowerKartGrandPrix",
+				"SportsHeadsIceHockey",
+				"StickmanKingdomclash",
+				"StreetFighter1Arcade",
+				"StreetFighter2Arcade",
+				"StreetFighter2CEArcade",
+				"StreetFighter2HFArcade",
+				"SuperMarioWorldThe SecretOfThe7GoldenStatues",
+				"SuperPunchOutEN",
+				"SupremeDuelist2019",
+				"TaikonoTatsujin",
+				"TheLoneRanger",
+				"TheSunForTheVampire",
+				"Tuff_Client_Offline_WASM",
+				"UZG",
+				"Ultimatecardrivingsimulator",
+				"VSSMB",
+				"XMenChildrenOfTheAtomArcade",
+				"XMenVSStreetFighter",
+				"Xevious",
+				"YoshisStrangeQuest",
+				"ZeldaIndigoch2",
+				"ZetaClient",
+			];
+
+			const gamesDiv = document.getElementById("games");
+
+			games.forEach((name) => {
+				const path = `embed/g/dump/${name}.html`;
+				const div = document.createElement("div");
+				div.className = "game";
+				div.innerHTML = `<h3>${name}</h3><div><a href="/${path}">Open</a><button data-path="/${path}">about:blank</button></div>`;
+				div.querySelector("button").addEventListener("click", () => openCloaked("/" + path));
+				gamesDiv.appendChild(div);
+			});
+		</script>
+	</body>
+</html>
